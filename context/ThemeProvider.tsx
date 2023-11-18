@@ -22,9 +22,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 		}
 	};
 
-	// useEffect(() => {
-	// 	handleThemeChange();
-	// }, [mode]);
+	useEffect(() => {
+		handleThemeChange();
+	}, [setMode]);
 
 	return (
 		<ThemeContext.Provider value={{ mode, setMode }}>
