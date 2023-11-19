@@ -7,11 +7,10 @@ import {
 	MenubarContent,
 	MenubarItem,
 	MenubarMenu,
-	MenubarSeparator,
-	MenubarShortcut,
 	MenubarTrigger,
 } from "@/components/ui/menubar";
 import Image from "next/image";
+import { themes } from "@/constants";
 
 const Theme = () => {
 	const { mode, setMode } = useTheme();
@@ -37,7 +36,39 @@ const Theme = () => {
 						/>
 					)}
 				</MenubarTrigger>
-				<MenubarContent className="absolute right-[-3rem] mt-3 min-w-[120px] py-2 rounded border dark:border-dark-400 dark:bg-dark-300"></MenubarContent>
+				<MenubarContent className="absolute right-[-3rem] mt-3 min-w-[120px] py-2 rounded border dark:border-dark-400 dark:bg-dark-300">
+					{themes.map((item) => (
+						<MenubarItem
+							key={item.value}
+							className="dark:focus:bg-dark-400 flex items-center px-2.5 py-2 gap-4"
+							onClick={() => {
+								setMode(item.value);
+								if (item.value !== "system") {
+									localStorage.theme = item.value;
+								} else {
+									localStorage.removeItem("theme");
+								}
+							}}
+						>
+							<Image
+								src={item.icon}
+								alt={item.value}
+								width={16}
+								height={16}
+								className={`${mode === item.value && "active-theme"}`}
+							/>
+							<p
+								className={`body-semibold text-light-500 ${
+									mode === item.value
+										? "text-primary-500"
+										: "text-dark100_light900"
+								}`}
+							>
+								{item.label}
+							</p>
+						</MenubarItem>
+					))}
+				</MenubarContent>
 			</MenubarMenu>
 		</Menubar>
 	);
