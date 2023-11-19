@@ -25,7 +25,7 @@ module.exports = {
 	content: [
 		"./pages/**/*.{ts,tsx}",
 		"./components/**/*.{ts,tsx}",
-		"./app/**/*.{ts,tsx}",
+		"./app/**/*.{ts,tsx,html}",
 		"./src/**/*.{ts,tsx}",
 	],
 	theme: {
