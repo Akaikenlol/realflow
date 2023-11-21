@@ -1,3 +1,5 @@
+import Filters from "@/components/shared/Filters";
+import LocalSearchBar from "@/components/shared/search/LocalSearchBar";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -12,8 +14,9 @@ export default function Home() {
 					</Button>
 				</Link>
 			</div>
-			<div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
-				LocalSearchBar Filters
+			<div className="mt-11 flex flex-col justify-between gap-5 max-sm:flex-col sm:items-center">
+				<LocalSearchBar />
+				<Filters />
 			</div>
 		</>
 	);
