@@ -3,6 +3,7 @@ import React from "react";
 import "../../styles/theme.css";
 import LeftSideBar from "@/components/shared/LeftSideBar";
 import RightSideBar from "@/components/shared/RightSideBar";
+// import RightSideBar from "@/components/shared/rightsidebar/RightSideBar";
 // import LeftSideBar from "@/components/shared/leftsidebar/LeftSideBar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -16,6 +17,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 					<div className="mx-auto w-full max-w-5xl">{children}</div>
 				</section>
 				<RightSideBar />
+				{/* <RightSideBar /> */}
 			</div>
 			{/* Toaster */}
 		</main>
