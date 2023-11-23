@@ -1,21 +1,47 @@
-import React from "react";
-import RenderTag from "./RenderTag";
+"use client";
 
-const Filters = () => {
-	// const tag = [
-	// 	{ _id: 1, title: "Newest" },
-	// 	{ _id: 2, title: "Recommended" },
-	// 	{ _id: 3, title: "Frequent" },
-	// 	{ _id: 4, title: "Unanswered" },
-	// ];
-	// return (
-	// 	<div className="mt-7 flex justify-start gap-4">
-	// 		{tag.map((item) => (
-	// 			<RenderTag key={item._id} name={item.title} showCount _id={0} />
-	// 		))}
-	// 	</div>
-	// );
-	return <div>Filter</div>;
+import React from "react";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
+import { SelectGroup } from "@radix-ui/react-select";
+
+interface Props {
+	filters: {
+		name: string;
+		value: string;
+	}[];
+	otherClasses?: string;
+	containerClasses?: string;
+}
+
+const Filters = ({ filters, otherClasses, containerClasses }: Props) => {
+	return (
+		<div className={`relative ${containerClasses}`}>
+			<Select>
+				<SelectTrigger
+					className={`${otherClasses} body-regular light-border background-light800_dark300 text-dark500_light700 border px-5 py-2.5`}
+				>
+					<div className="line-clamp-1 flex-1 text-left">
+						<SelectValue placeholder="Select a Filter" />
+					</div>
+				</SelectTrigger>
+				<SelectContent>
+					<SelectGroup>
+						{filters.map((item) => (
+							<SelectItem key={item.value} value={item.value}>
+								{item.name}
+							</SelectItem>
+						))}
+					</SelectGroup>
+				</SelectContent>
+			</Select>
+		</div>
+	);
 };
 
 export default Filters;
