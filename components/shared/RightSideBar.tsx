@@ -5,23 +5,23 @@ import RenderTag from "./RenderTag";
 
 const RightSideBar = () => {
 	const hotQuestions = [
-		{ _id: 1, title: "Is it only me or the font is bolder than necessary?" },
+		{ _id: "1", title: "Is it only me or the font is bolder than necessary?" },
 		{
-			_id: 2,
+			_id: "2",
 			title:
 				"Best practices for data fetching in a Next.js application with Server-Side Rendering (SSR)?",
 		},
-		{ _id: 3, title: "Can I get the course for free?" },
-		{ _id: 4, title: "Redux Toolkit Not Updating State as Expected" },
-		{ _id: 5, title: "Async/Await Function Not Handling Errors Properly" },
+		{ _id: "3", title: "Can I get the course for free?" },
+		{ _id: "4", title: "Redux Toolkit Not Updating State as Expected" },
+		{ _id: "5", title: "Async/Await Function Not Handling Errors Properly" },
 	];
 
 	const popularTags = [
-		{ _id: 1, title: "JavaScript", totalQuestions: 21 },
-		{ _id: 2, title: "HTML", totalQuestions: 15 },
-		{ _id: 3, title: "CSS", totalQuestions: 18 },
-		{ _id: 4, title: "TypeScript", totalQuestions: 10 },
-		{ _id: 5, title: "NEXT JS", totalQuestions: 8 },
+		{ _id: "1", title: "JavaScript", totalQuestions: 21 },
+		{ _id: "2", title: "HTML", totalQuestions: 15 },
+		{ _id: "3", title: "CSS", totalQuestions: 18 },
+		{ _id: "4", title: "TypeScript", totalQuestions: 10 },
+		{ _id: "5", title: "NEXT JS", totalQuestions: 8 },
 	];
 
 	return (
