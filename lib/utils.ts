@@ -59,6 +59,6 @@ export const formatNumberWithExtension = (num: number): string => {
 };
 
 // Example usage:
-const bigNumber = 1500000; // 1.5 million
-const formattedNumber = formatNumberWithExtension(bigNumber);
-console.log(formattedNumber);
+// const bigNumber = 1500000; // 1.5 million
+// const formattedNumber = formatNumberWithExtension(bigNumber);
+// console.log(formattedNumber);
