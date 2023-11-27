@@ -5,39 +5,12 @@ import NoResult from "@/components/shared/NoResult";
 import LocalSearchBar from "@/components/shared/search/LocalSearchBar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filter";
+import { getQuestions } from "@/lib/actions/question.action";
 import Link from "next/link";
 
-const questions = [
-	{
-		_id: "1",
-		title:
-			"Best practices for data fetching in a Next.js application with Server-Side Rendering (SSR)?",
-		tags: [
-			{ _id: "1", name: "NEXT JS" },
-			{ _id: "2", name: "Server Side Rendering" },
-		],
-		author: { _id: "1", name: "John Doe", picture: "john-doe.png" },
-		upvotes: 100000,
-		views: 1000000,
-		answers: [],
-		createdAt: new Date("2023-11-21T12:00:00.000Z"),
-	},
-	{
-		_id: "2",
-		title: "Redux Toolkit Not Updating State as Expected",
-		tags: [
-			{ _id: "1", name: "NEXT JS" },
-			{ _id: "2", name: "Server Side Rendering" },
-		],
-		author: { _id: "1", name: "Sujata", picture: "sujata.png" },
-		upvotes: 2550000,
-		views: 400000,
-		answers: [],
-		createdAt: new Date("2023-11-19T12:00:00.000Z"),
-	},
-];
+export default async function Home() {
+	const result = await getQuestions({});
 
-export default function Home() {
 	return (
 		<>
 			<div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -65,8 +38,8 @@ export default function Home() {
 			<HomeFilters />
 
 			<div className="mt-10 flex flex-col gap-6 w-full">
-				{questions.length > 0 ? (
-					questions.map((question) => (
+				{result.questions.length > 0 ? (
+					result.questions.map((question) => (
 						<QuestionCard
 							key={question._id}
 							_id={question._id}
