@@ -74,13 +74,13 @@ const QuestionCard = ({
 					title="Votes"
 					textStyles="small-medium text-dark400_light800"
 				/>
-				<Metric
+				{/* <Metric
 					imgUrl="/assets/icons/message.svg"
 					alt="Answer"
 					value={formatNumberWithExtension(answers.length)}
 					title="Answers"
 					textStyles="small-medium text-dark400_light800"
-				/>
+				/> */}
 				<Metric
 					imgUrl="/assets/icons/eye.svg"
 					alt="eye"
