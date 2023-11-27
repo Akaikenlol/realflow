@@ -20,12 +20,19 @@ import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { useState } from "react";
 import { createQuestions } from "@/lib/actions/question.action";
+import { useRouter, usePathname } from "next/navigation";
 
 const type: any = "create";
 
-const Question = () => {
+interface Props {
+	mongoUserId: string;
+}
+
+const Question = ({ mongoUserId }: Props) => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const editorRef = useRef(null);
+	const router = useRouter();
+	const pathname = usePathname();
 
 	// 1. Define your form.
 	const form = useForm<z.infer<typeof QuestionsSchema>>({
@@ -48,8 +55,14 @@ const Question = () => {
 		try {
 			// make an async call to your API -> create a question
 			// contain all from data
-			await createQuestions({});
+			await createQuestions({
+				title: values.title,
+				content: values.explanation,
+				tags: values.tags,
+				author: JSON.parse(mongoUserId),
+			});
 			// navigate to home page
+			router.push("/");
 		} catch (error) {
 		} finally {
 			setIsSubmitting(false);
@@ -218,19 +231,19 @@ const Question = () => {
 						</FormItem>
 					)}
 				/>
+				<Button
+					type="submit"
+					// onClick={() => onSubmit}
+					disabled={isSubmitting}
+					className="primary-gradient w-fit !text-light-900 mt-9"
+				>
+					{isSubmitting ? (
+						<>{type === "edit" ? "Editing..." : "Posting..."}</>
+					) : (
+						<>{type === "edit" ? "Edit Question" : "Ask a Question"}</>
+					)}
+				</Button>
 			</form>
-			<Button
-				type="submit"
-				// onClick={() => setIsSubmitting}
-				disabled={isSubmitting}
-				className="primary-gradient w-fit !text-light-900 mt-9"
-			>
-				{isSubmitting ? (
-					<>{type === "edit" ? "Editing..." : "Posting..."}</>
-				) : (
-					<>{type === "edit" ? "Edit Question" : "Ask a Question"}</>
-				)}
-			</Button>
 		</Form>
 	);
 };
