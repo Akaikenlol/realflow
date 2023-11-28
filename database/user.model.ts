@@ -1,6 +1,7 @@
 import { Schema, model, models, Document } from "mongoose";
 
 export interface IUser extends Document {
+	// _id?: Schema.Types.ObjectId;
 	clerkId: string;
 	name: string;
 	username: string;
