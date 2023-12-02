@@ -1,6 +1,12 @@
 "use client";
 
+import {
+	downvoteQuestion,
+	upvoteQuestion,
+} from "@/lib/actions/question.action";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+
 import React from "react";
 
 interface Props {
@@ -24,9 +30,58 @@ const Votes = ({
 	hasdownVoted,
 	hasSaved,
 }: Props) => {
+	const pathname = usePathname();
+	const router = useRouter();
 	const handleSaved = () => {};
 
-	const handleVote = (action: string) => {};
+	const handleVote = async (action: string) => {
+		if (!userId) {
+			return;
+		}
+
+		if (action === "upvote") {
+			if (type === "Question") {
+				await upvoteQuestion({
+					questionId: JSON.parse(itemId),
+					userId: JSON.parse(userId),
+					hasupVoted,
+					hasdownVoted,
+					path: pathname,
+				});
+			} else if (type === "Answer") {
+				// await upvoteAnswer({
+				// 	questionId: JSON.parse(itemId),
+				// 	userId: JSON.parse(userId),
+				// 	hasupVoted,
+				// 	hasdownVoted,
+				// 	path: pathname,
+				// });
+			}
+			// TO DO: Show a toast
+			return;
+		}
+		if (action === "downvote") {
+			if (type === "Question") {
+				await downvoteQuestion({
+					questionId: JSON.parse(itemId),
+					userId: JSON.parse(userId),
+					hasupVoted,
+					hasdownVoted,
+					path: pathname,
+				});
+			} else if (type === "Answer") {
+				// await downvoteAnswer({
+				// 	questionId: JSON.parse(itemId),
+				// 	userId: JSON.parse(userId),
+				// 	hasupVoted,
+				// 	hasdownVoted,
+				// 	path: pathname,
+				// });
+			}
+			// TO DO: Show a toast
+			return;
+		}
+	};
 	return (
 		<div className="flex gap-5">
 			<div className="flex-center gap-2.5">
