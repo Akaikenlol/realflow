@@ -52,8 +52,13 @@ const Answer = ({ question, questionId, authorId }: Props) => {
 
 			form.reset();
 
-			// if(){};
+			if (editorRef.current) {
+				const editor = editorRef.current as any;
+
+				editor.setContent("");
+			}
 		} catch (error) {
+			console.log("error", error);
 		} finally {
 			setIsSubmitting(false);
 		}
