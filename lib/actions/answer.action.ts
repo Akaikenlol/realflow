@@ -36,7 +36,7 @@ export async function getAnswer(params: GetAnswersParams) {
 
 		const { questionId } = params;
 
-		console.log("questionId", { questionId });
+		// console.log("questionId", { questionId });
 
 		const answers = await Answer.find({ question: questionId })
 			.populate("author", "_id clerkId name picture")
