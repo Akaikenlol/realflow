@@ -29,7 +29,7 @@ const AllAnswers = async ({
 	return (
 		<div className="mt-11">
 			<div className="flex justify-between items-center">
-				<h3 className="tex-primary-500">{totalAnswer} Answers</h3>
+				<h3 className="text-primary-500">{totalAnswer} Answers</h3>
 				<Filters filters={AnswerFilters} />
 			</div>
 			<div>
