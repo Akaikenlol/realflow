@@ -38,6 +38,7 @@ export default async function Home() {
 			<HomeFilters />
 
 			<div className="mt-10 flex flex-col gap-6 w-full">
+				{/*Looping through questions */}
 				{result.questions.length > 0 ? (
 					result.questions.map((question) => (
 						<QuestionCard
