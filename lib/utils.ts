@@ -62,3 +62,19 @@ export const formatNumberWithExtension = (num: number): string => {
 // const bigNumber = 1500000; // 1.5 million
 // const formattedNumber = formatNumberWithExtension(bigNumber);
 // console.log(formattedNumber);
+
+export const getJoinedDate = (date: Date): string => {
+	// Get the month and year from the date
+	const month = date.toLocaleString("default", { month: "long" }); // Months are zero-based
+	const year = date.getFullYear();
+
+	// Format the date as MM/YYYY
+	const joinedDate = `${month} ${year}`;
+
+	return joinedDate;
+};
+
+// Example usage:
+// const currentDate = new Date();
+// const joinedDate = getJoinedDate(currentDate);
+// console.log(joinedDate);
