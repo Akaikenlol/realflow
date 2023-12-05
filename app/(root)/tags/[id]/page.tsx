@@ -18,7 +18,10 @@ const Page = async ({ params, searchParams }: URLProps) => {
 	console.log("result", result);
 	return (
 		<>
-			<h1 className="h1-bold text-dark100_light900">{result.tagTitle}</h1>
+			<h1 className="h1-bold text-dark100_light900">
+				{result.tagTitle.charAt(0).toUpperCase()}
+				{result.tagTitle.slice(1)}
+			</h1>
 
 			<div className="mt-11 w-full">
 				<LocalSearchBar
