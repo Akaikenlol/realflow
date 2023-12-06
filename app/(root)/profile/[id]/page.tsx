@@ -1,4 +1,5 @@
 import ProfileLink from "@/components/shared/ProfileLink";
+import Stats from "@/components/shared/Stats";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getUserInfo } from "@/lib/actions/user.action";
@@ -31,6 +32,13 @@ const Page = async ({ params, searchParams }: URLProps) => {
 							@{userInfo?.user.username}
 						</p>
 						<div className="flex flex-wrap mt-5 items-center justify-start gap-5">
+							{userInfo.user.portfolioWebsite && (
+								<ProfileLink
+									imgUrl="/assets/icons/link.svg"
+									href={userInfo.user.portfolioWebsite}
+									title="Portfolio"
+								/>
+							)}
 							{userInfo.user.location && (
 								<ProfileLink
 									imgUrl="/assets/icons/loaction.svg"
@@ -42,7 +50,11 @@ const Page = async ({ params, searchParams }: URLProps) => {
 								title={getJoinedDate(userInfo.user.joinedAt)}
 							/>
 						</div>
-						{userInfo.user.bio && <p>{userInfo.user.bio}</p>}
+						{userInfo.user.bio && (
+							<p className="paragraph-regular text-dark400_light800 mt-8">
+								{userInfo.user.bio}
+							</p>
+						)}
 					</div>
 				</div>
 				<div className="flex justify-end max-sm:mb-5 max-sm:w-full sm:mt-3">
@@ -57,7 +69,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
 					</SignedIn>
 				</div>
 			</div>
-			Stats
+			<Stats />
 			<div className="mt-10 flex gap-10">
 				<Tabs defaultValue="top-posts" className="flex-1">
 					<TabsList className="background-light800_dark400 min-h-[42px] p-1">
