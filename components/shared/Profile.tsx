@@ -1,6 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
 import {
 	Form,
 	FormControl,
@@ -10,142 +13,171 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import Image from "next/image";
-import { Input } from "../ui/input";
-import { useForm } from "react-hook-form";
-import { QuestionsSchema } from "@/lib/validation";
-import { Button } from "../ui/button";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "../ui/textarea";
+import { useState } from "react";
+import { ProfileSchema } from "@/lib/validation";
+import { usePathname, useRouter } from "next/navigation";
+import { updateUser } from "@/lib/actions/user.action";
 
 interface Props {
-	mongoUserId: string;
-	type?: string;
-	questionDetails?: string;
+	user: string;
+	clerkId: string;
 }
 
-const Profile = ({ mongoUserId, questionDetails, type }: Props) => {
+const Profile = ({ user, clerkId }: Props) => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const router = useRouter();
+	const pathname = usePathname();
+	const parsedUser = JSON.parse(user);
 
-	const form = useForm<z.infer<typeof QuestionsSchema>>({
-		resolver: zodResolver(QuestionsSchema),
+	const form = useForm<z.infer<typeof ProfileSchema>>({
+		resolver: zodResolver(ProfileSchema),
 		defaultValues: {
-			title: "",
-			explanation: "",
-			tags: [],
+			name: parsedUser.name || "",
+			username: parsedUser.username || "",
+			portfolioWebsite: parsedUser.portfolioWebsite || "",
+			bio: parsedUser.bio || "",
+			location: parsedUser.location || "",
 		},
 	});
 
-	const onSubmit = () => {};
+	// 2. Define a submit handler.
+	async function onSubmit(values: z.infer<typeof ProfileSchema>) {
+		setIsSubmitting(true);
+		try {
+			// updateUser
+			await updateUser({
+				clerkId,
+				updateData: {
+					name: values.name,
+					username: values.username,
+					portfolioWebsite: values.portfolioWebsite,
+					location: values.location,
+					bio: values.bio,
+				},
+				path: pathname,
+			});
+			router.back();
+			// router.push(`/profile/${parsedUser._id}`);
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setIsSubmitting(false);
+		}
+	}
 
 	return (
 		<Form {...form}>
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className="flex flex-col w-full gap-10"
+				className="mt-9 flex flex-col w-full gap-9"
 			>
 				<FormField
 					control={form.control}
-					name="title"
+					name="name"
 					render={({ field }) => (
-						<FormItem className="flex flex-col w-full">
+						<FormItem className="space-y-3.5">
 							<FormLabel className="paragraph-semibold text-dark400_light800">
 								Full Name <span className="text-primary-500">*</span>
 							</FormLabel>
-							<FormControl className="mt-3.5">
+							<FormControl>
 								<Input
 									{...field}
-									className="no-focus paragraph-regular background-light900_dark300 text-dark300_light700 light-border-2 min-h-[56px] border"
+									placeholder="Your name"
+									className="no-focus paragraph-regular background-light700_dark300 text-dark300_light700 light-border-2 min-h-[56px] border"
 								/>
 							</FormControl>
-							<FormMessage className="text-red-500" />
+							<FormMessage />
 						</FormItem>
 					)}
 				/>
 				<FormField
 					control={form.control}
-					name="title"
+					name="username"
 					render={({ field }) => (
-						<FormItem className="flex flex-col w-full">
+						<FormItem className="space-y-3.5">
 							<FormLabel className="paragraph-semibold text-dark400_light800">
-								User Name <span className="text-primary-500">*</span>
+								Username <span className="text-primary-500">*</span>
 							</FormLabel>
-							<FormControl className="mt-3.5">
+							<FormControl>
 								<Input
 									{...field}
-									className="no-focus paragraph-regular background-light900_dark300 text-dark300_light700 light-border-2 min-h-[56px] border"
+									placeholder="Your username"
+									className="no-focus paragraph-regular background-light700_dark300 text-dark300_light700 light-border-2 min-h-[56px] border"
 								/>
 							</FormControl>
-							<FormMessage className="text-red-500" />
+							<FormMessage />
 						</FormItem>
 					)}
 				/>
 				<FormField
 					control={form.control}
-					name="title"
+					name="portfolioWebsite"
 					render={({ field }) => (
-						<FormItem className="flex flex-col w-full">
+						<FormItem className="space-y-3.5">
 							<FormLabel className="paragraph-semibold text-dark400_light800">
-								Portfolio Link <span className="text-primary-500">*</span>
+								Portfolio Link
 							</FormLabel>
-							<FormControl className="mt-3.5">
+							<FormControl>
 								<Input
 									{...field}
-									className="no-focus paragraph-regular background-light900_dark300 text-dark300_light700 light-border-2 min-h-[56px] border"
+									type="url"
+									placeholder="Your portfolio URL"
+									className="no-focus paragraph-regular background-light700_dark300 text-dark300_light700 light-border-2 min-h-[56px] border"
 								/>
 							</FormControl>
-							<FormMessage className="text-red-500" />
+							<FormMessage />
 						</FormItem>
 					)}
 				/>
 				<FormField
 					control={form.control}
-					name="title"
+					name="location"
 					render={({ field }) => (
-						<FormItem className="flex flex-col w-full">
+						<FormItem className="space-y-3.5">
 							<FormLabel className="paragraph-semibold text-dark400_light800">
 								Location <span className="text-primary-500">*</span>
 							</FormLabel>
-							<FormControl className="mt-3.5">
+							<FormControl>
 								<Input
 									{...field}
-									className="no-focus paragraph-regular background-light900_dark300 text-dark300_light700 light-border-2 min-h-[56px] border"
+									placeholder="Where are you from?"
+									className="no-focus paragraph-regular background-light700_dark300 text-dark300_light700 light-border-2 min-h-[56px] border"
 								/>
 							</FormControl>
-							<FormMessage className="text-red-500" />
+							<FormMessage />
 						</FormItem>
 					)}
 				/>
 				<FormField
 					control={form.control}
-					name="title"
+					name="bio"
 					render={({ field }) => (
-						<FormItem className="flex flex-col w-full">
+						<FormItem className="space-y-3.5">
 							<FormLabel className="paragraph-semibold text-dark400_light800">
 								Bio <span className="text-primary-500">*</span>
 							</FormLabel>
-							<FormControl className="mt-3.5">
-								<Input
+							<FormControl>
+								<Textarea
 									{...field}
-									className="no-focus paragraph-regular background-light900_dark300 text-dark300_light700 light-border-2 min-h-[56px] border"
+									placeholder="What special about you?"
+									className="no-focus paragraph-regular background-light700_dark300 text-dark300_light700 light-border-2 min-h-[56px] border"
 								/>
 							</FormControl>
-							<FormMessage className="text-red-500" />
+							<FormMessage />
 						</FormItem>
 					)}
 				/>
-				<Button
-					type="submit"
-					onClick={() => onSubmit}
-					disabled={isSubmitting}
-					className="primary-gradient w-fit !text-light-900 mt-9"
-				>
-					{isSubmitting ? (
-						<>{type === "Edit" ? "Editing..." : "Posting..."}</>
-					) : (
-						<>{type === "Edit" ? "Edit Profile" : "Ask a Question"}</>
-					)}
-				</Button>
+				<div className="flex justify-end mt-7">
+					<Button
+						type="submit"
+						className="primary-gradient w-fit"
+						disabled={isSubmitting}
+					>
+						{isSubmitting ? "Saving..." : "Save"}
+					</Button>
+				</div>
 			</form>
 		</Form>
 	);
