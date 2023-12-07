@@ -49,11 +49,11 @@ export const getTimestamp = (createdAt: Date): string => {
 export const formatNumberWithExtension = (number: number): string => {
 	if (number >= 1000000) {
 		// If the number is in millions (1,000,000 or more)
-		const millions = (number / 1000000).toFixed(2);
+		const millions = (number / 1000000).toFixed(1);
 		return `${millions}M`;
 	} else if (number >= 1000) {
 		// If the number is in thousands (1,000 or more)
-		const thousands = (number / 1000).toFixed(2);
+		const thousands = (number / 1000).toFixed(1);
 		return `${thousands}K`;
 	} else {
 		// If the number is less than 1,000, simply return the number as is

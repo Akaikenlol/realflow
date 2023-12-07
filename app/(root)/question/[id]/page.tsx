@@ -68,10 +68,12 @@ const Page = async ({ params }: any) => {
 				<Metric
 					imgUrl="/assets/icons/message.svg"
 					alt="Answer"
-					// value={formatNumberWithExtension(result.answers.length)}
+					value={formatNumberWithExtension(
+						result.answers && result.answers.length
+					)}
 					title="Answers"
 					textStyles="small-medium text-dark400_light800"
-					value={""}
+					// value={""}
 				/>
 				<Metric
 					imgUrl="/assets/icons/eye.svg"
