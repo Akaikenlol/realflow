@@ -14,6 +14,7 @@ interface QuestionProps {
 		name: string;
 	}[];
 	author: {
+		clerkId: string;
 		_id: string;
 		name: string;
 		picture: string;
@@ -87,7 +88,7 @@ const QuestionCard = ({
 				<Metric
 					imgUrl="/assets/icons/message.svg"
 					alt="Answer"
-					value={formatNumberWithExtension(answers)}
+					value={formatNumberWithExtension(answers && answers.length)}
 					title="Answers"
 					textStyles="small-medium text-dark400_light800"
 				/>
