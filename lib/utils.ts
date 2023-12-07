@@ -46,15 +46,18 @@ export const getTimestamp = (createdAt: Date): string => {
 // const createdAt = new Date("2023-11-20T12:00:00Z");
 // console.log(getTimestamp(createdAt));
 
-export const formatNumberWithExtension = (num: number): string => {
-	if (num >= 1e6) {
-		const formattedNumber = (num / 1e6).toFixed(2);
-		return `${formattedNumber}M`;
-	} else if (num >= 1e3) {
-		const formattedNumber = (num / 1e3).toFixed(2);
-		return `${formattedNumber}K`;
+export const formatNumberWithExtension = (number: number): string => {
+	if (number >= 1000000) {
+		// If the number is in millions (1,000,000 or more)
+		const millions = (number / 1000000).toFixed(2);
+		return `${millions}M`;
+	} else if (number >= 1000) {
+		// If the number is in thousands (1,000 or more)
+		const thousands = (number / 1000).toFixed(2);
+		return `${thousands}K`;
 	} else {
-		return num.toString();
+		// If the number is less than 1,000, simply return the number as is
+		return `${number}`;
 	}
 };
 
