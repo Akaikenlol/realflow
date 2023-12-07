@@ -10,7 +10,7 @@ interface StatsCardProps {
 
 const StatsCard = ({ imgUrl, value, title }: StatsCardProps) => {
 	return (
-		<div className="light-border background-light900_dark300 flex flex-wrap items-center justify-start gap-4 rounded-md border-p-4 shadow-light-300 dark:shadow-dark-200">
+		<div className="light-border background-light900_dark300 flex flex-wrap items-center justify-start gap-4 rounded-md border p-6 shadow-light-300 dark:shadow-dark-200">
 			<Image
 				src={imgUrl}
 				width={40}
@@ -35,7 +35,7 @@ const Stats = ({ totalQuestions, totalAnswers }: Props) => {
 		<div className="mt-10">
 			<h4 className="h3-semibold text-dark200_light900">Stats</h4>
 			<div className="mt-5 grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-5">
-				<div className="light-border background-light900_dark300 flex flex-wrap items-center justify-evenly gap-4 rounded-md border-p-4 shadow-light-300 dark:shadow-dark-200">
+				<div className="light-border background-light900_dark300 flex flex-wrap items-center justify-evenly gap-4 rounded-md border p-6 shadow-light-300 dark:shadow-dark-200">
 					<div>
 						<p className="paragraph-semibold text-dark200_light900">
 							{formatNumberWithExtension(totalQuestions)}
