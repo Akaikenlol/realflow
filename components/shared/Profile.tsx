@@ -61,7 +61,7 @@ const Profile = ({ user, clerkId }: Props) => {
 			router.back();
 			// router.push(`/profile/${parsedUser._id}`);
 		} catch (error) {
-			console.error(error);
+			console.log(error);
 		} finally {
 			setIsSubmitting(false);
 		}
