@@ -8,6 +8,7 @@ import {
 	DeleteQuestionParams,
 	EditQuestionParams,
 	GetQuestionByIdParams,
+	GetQuestionsByTagIdParams,
 	GetQuestionsParams,
 	QuestionVoteParams,
 } from "./shared.types";
@@ -196,6 +197,21 @@ export async function editQuestion(params: EditQuestionParams) {
 		await question.save();
 
 		revalidatePath(path);
+	} catch (error) {
+		console.log("error", error);
+		throw error;
+	}
+}
+
+export async function getHotQuestions() {
+	try {
+		connectToDB();
+
+		const hotQuestions = await Question.find({})
+			.sort({ views: -1, upvotes: -1 })
+			.limit(5);
+
+		return hotQuestions;
 	} catch (error) {
 		console.log("error", error);
 		throw error;
