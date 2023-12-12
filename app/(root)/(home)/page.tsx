@@ -12,8 +12,9 @@ import Link from "next/link";
 export default async function Home({ searchParams }: SearchParamsProps) {
 	const result = await getQuestions({
 		searchQuery: searchParams.q,
+		filter: searchParams.filter,
 	});
-
+	// Fetch Recommended Questions
 	return (
 		<>
 			<div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
