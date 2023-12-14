@@ -88,7 +88,7 @@ const QuestionCard = ({
 				<Metric
 					imgUrl="/assets/icons/message.svg"
 					alt="Answer"
-					value={formatNumberWithExtension(answers && answers.length)}
+					value={formatNumberWithExtension(answers?.length)}
 					title="Answers"
 					textStyles="small-medium text-dark400_light800"
 				/>
