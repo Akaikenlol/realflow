@@ -12,7 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const Page = async ({ params }: any) => {
+const Page = async ({ params, searchParams }: any) => {
 	const result = await getQuestionsById({ questionId: params.id });
 	const { userId: clerkId } = auth();
 
@@ -67,13 +67,10 @@ const Page = async ({ params }: any) => {
 				/>
 				<Metric
 					imgUrl="/assets/icons/message.svg"
-					alt="Answer"
-					value={formatNumberWithExtension(
-						result.answers && result.answers.length
-					)}
+					alt="message"
+					value={formatNumberWithExtension(result.answer.length)}
 					title="Answers"
 					textStyles="small-medium text-dark400_light800"
-					// value={""}
 				/>
 				<Metric
 					imgUrl="/assets/icons/eye.svg"
@@ -98,6 +95,8 @@ const Page = async ({ params }: any) => {
 				questionId={result._id}
 				userId={mongoUser._id}
 				totalAnswer={result.answer.length}
+				page={searchParams?.page}
+				filter={searchParams?.filter}
 			/>
 			<Answer
 				question={result.content}
