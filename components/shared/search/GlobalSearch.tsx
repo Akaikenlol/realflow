@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -11,11 +11,33 @@ const GlobalSearch = () => {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
+	const searchContainerRef = useRef(null);
 
 	const query = searchParams.get("q");
 
 	const [search, setSearch] = useState(query || "");
 	const [isOpen, setIsOpen] = useState(false);
+
+	useEffect(() => {
+		const handleOutsideClick = (event: any) => {
+			if (
+				searchContainerRef.current &&
+				// @ts-ignore
+				!searchContainerRef.current.contains(event.target)
+			) {
+				setIsOpen(false);
+				setSearch("");
+			}
+		};
+
+		setIsOpen(false);
+
+		document.addEventListener("click", handleOutsideClick);
+
+		return () => {
+			document.removeEventListener("click", handleOutsideClick);
+		};
+	}, [pathname]);
 
 	useEffect(() => {
 		const delayDebounceFn = setTimeout(() => {
@@ -42,7 +64,10 @@ const GlobalSearch = () => {
 
 	// console.log(query);
 	return (
-		<div className="w-full max-w-[600px] max-lg:hidden relative">
+		<div
+			className="w-full max-w-[600px] max-lg:hidden relative"
+			ref={searchContainerRef}
+		>
 			<div className="background-light800_darkgradient relative flex min-h-[56px] grow items-center px-4 rounded-lg gap-1">
 				<Image
 					src="/assets/icons/search.svg"
