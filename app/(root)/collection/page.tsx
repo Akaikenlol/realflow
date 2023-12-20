@@ -8,6 +8,7 @@ import React from "react";
 import { auth } from "@clerk/nextjs";
 import { SearchParamsProps } from "@/types";
 import Pagination from "@/components/shared/Pagination";
+import Loading from "./loading";
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
 	const { userId } = auth();
@@ -20,6 +21,10 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
 		filter: searchParams.filter,
 		page: searchParams.page ? +searchParams.page : 1,
 	});
+
+	// const isLoading = true;
+
+	// if (isLoading) return <Loading />;
 
 	return (
 		<>
