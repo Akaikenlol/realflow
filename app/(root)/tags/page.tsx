@@ -8,6 +8,7 @@ import { getAllTags } from "@/lib/actions/tag.action";
 import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 import React from "react";
+import Loading from "./loading";
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
 	const result = await getAllTags({
@@ -17,6 +18,11 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
 	});
 
 	console.log(result.tags);
+
+	// const isLoading = true;
+
+	// if (isLoading) return <Loading />;
+
 	return (
 		<>
 			<h1 className="h1-bold text-dark100_light900">All Tags</h1>
