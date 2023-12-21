@@ -36,11 +36,11 @@ const Theme = () => {
 						/>
 					)}
 				</MenubarTrigger>
-				<MenubarContent className="absolute right-[-3rem] mt-3 min-w-[120px] py-2 rounded border dark:border-dark-400 dark:bg-dark-300">
+				<MenubarContent className="absolute right-[-3rem] mt-3 min-w-[120px] py-2 rounded border dark:border-dark-400 dark:bg-dark-300 bg-light-900">
 					{themes.map((item) => (
 						<MenubarItem
 							key={item.value}
-							className="dark:focus:bg-dark-400 flex items-center px-2.5 py-2 gap-4"
+							className="dark:focus:bg-dark-400 flex items-center px-2.5 py-2 gap-4 focus:bg-light-800 cursor-pointer"
 							onClick={() => {
 								setMode(item.value);
 								if (item.value !== "system") {

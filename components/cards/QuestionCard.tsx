@@ -14,7 +14,7 @@ interface QuestionProps {
 		name: string;
 	}[];
 	author: {
-		clerkId: string;
+		clerkId?: string;
 		_id: string;
 		name: string;
 		picture: string;
@@ -38,6 +38,7 @@ const QuestionCard = ({
 	clerkId,
 }: QuestionProps) => {
 	const showActionButtons = clerkId && clerkId === author.clerkId;
+
 	return (
 		<div className="card-wrapper p-9 sm:px-11 rounded-[10px]">
 			<div className="flex flex-col-reverse items-start justify-between gap-5 sm:flex-row">
@@ -78,27 +79,29 @@ const QuestionCard = ({
 					isAuthor
 					textStyles="body-medium text-dark400_light700"
 				/>
-				<Metric
-					imgUrl="/assets/icons/like.svg"
-					alt="Upvote"
-					value={formatNumberWithExtension(upvotes.length)}
-					title="Votes"
-					textStyles="small-medium text-dark400_light800"
-				/>
-				<Metric
-					imgUrl="/assets/icons/message.svg"
-					alt="Answer"
-					value={formatNumberWithExtension(answers?.length)}
-					title="Answers"
-					textStyles="small-medium text-dark400_light800"
-				/>
-				<Metric
-					imgUrl="/assets/icons/eye.svg"
-					alt="eye"
-					value={formatNumberWithExtension(views)}
-					title="Views"
-					textStyles="small-medium text-dark400_light800"
-				/>
+				<div className="flex items-center gap-3 max-sm:flex-wrap max-sm:justify-start">
+					<Metric
+						imgUrl="/assets/icons/like.svg"
+						alt="Upvote"
+						value={formatNumberWithExtension(upvotes.length)}
+						title="Votes"
+						textStyles="small-medium text-dark400_light800"
+					/>
+					<Metric
+						imgUrl="/assets/icons/message.svg"
+						alt="Answer"
+						value={formatNumberWithExtension(answers?.length)}
+						title="Answers"
+						textStyles="small-medium text-dark400_light800"
+					/>
+					<Metric
+						imgUrl="/assets/icons/eye.svg"
+						alt="eye"
+						value={formatNumberWithExtension(views)}
+						title="Views"
+						textStyles="small-medium text-dark400_light800"
+					/>
+				</div>
 			</div>
 		</div>
 	);
