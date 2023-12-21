@@ -8,6 +8,12 @@ import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 import React from "react";
 import Loading from "./loading";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Community | Dev Flow",
+	description: "A place where developers share ideas and help each other grow",
+};
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
 	const result = await getAllUsers({

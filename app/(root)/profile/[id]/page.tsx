@@ -11,6 +11,12 @@ import { SignedIn, auth } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Profile | Dev Flow",
+	description: "A place where developers share ideas and help each other grow",
+};
 
 const Page = async ({ params, searchParams }: URLProps) => {
 	const { userId: clerkId } = auth();
