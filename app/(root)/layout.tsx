@@ -3,6 +3,7 @@ import React from "react";
 import "../../styles/theme.css";
 import LeftSideBar from "@/components/shared/LeftSideBar";
 import RightSideBar from "@/components/shared/RightSideBar";
+import { Toaster } from "@/components/ui/toaster";
 // import RightSideBar from "@/components/shared/rightsidebar/RightSideBar";
 // import LeftSideBar from "@/components/shared/leftsidebar/LeftSideBar";
 
@@ -19,7 +20,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 				<RightSideBar />
 				{/* <RightSideBar /> */}
 			</div>
-			{/* Toaster */}
+			<Toaster />
 		</main>
 	);
 };

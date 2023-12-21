@@ -22,6 +22,7 @@ import { useState } from "react";
 import { createQuestions, editQuestion } from "@/lib/actions/question.action";
 import { useRouter, usePathname } from "next/navigation";
 import { useTheme } from "@/context/ThemeProvider";
+import { toast } from "../ui/use-toast";
 
 // const type: any = "create";
 
@@ -60,7 +61,7 @@ const Question = ({ mongoUserId, questionDetails, type }: Props) => {
 		// ✅ This will be type-safe and validated.
 		// This is going to dis allowed us to press the button for the second time and cause some chaos in DB.
 		setIsSubmitting(true);
-		console.log(values);
+		// console.log(values);
 
 		try {
 			if (type === "Edit") {
