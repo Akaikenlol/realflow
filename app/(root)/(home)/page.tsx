@@ -6,11 +6,14 @@ import Pagination from "@/components/shared/Pagination";
 import LocalSearchBar from "@/components/shared/search/LocalSearchBar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filter";
-import { getQuestions } from "@/lib/actions/question.action";
+import {
+	getQuestions,
+	getRecommendedQuestions,
+} from "@/lib/actions/question.action";
 import { SearchParamsProps } from "@/types";
 import Link from "next/link";
-import Loading from "./loading";
 import type { Metadata } from "next";
+import { auth } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
 	title: "Home | Dev Flow",
@@ -18,16 +21,30 @@ export const metadata: Metadata = {
 };
 
 export default async function Home({ searchParams }: SearchParamsProps) {
-	const result = await getQuestions({
-		searchQuery: searchParams.q,
-		filter: searchParams.filter,
-		page: searchParams.page ? +searchParams.page : 1,
-	});
-	// Fetch Recommended Questions
+	const { userId } = auth();
+	let result;
 
-	// const isLoading = true;
+	if (searchParams?.filter === "recommended") {
+		if (userId) {
+			result = await getRecommendedQuestions({
+				userId,
+				searchQuery: searchParams.q,
+				page: searchParams.page ? +searchParams.page : 1,
+			});
+		} else {
+			result = {
+				question: [],
+				isNext: false,
+			};
+		}
+	} else {
+		result = await getQuestions({
+			searchQuery: searchParams.q,
+			filter: searchParams.filter,
+			page: searchParams.page ? +searchParams.page : 1,
+		});
+	}
 
-	// if (isLoading) return <Loading />;
 	return (
 		<>
 			<div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -56,7 +73,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
 
 			<div className="mt-10 flex flex-col gap-6 w-full">
 				{/*Looping through questions */}
-				{result.questions.length > 0 ? (
+				{result && result.questions && result.questions.length > 0 ? (
 					result.questions.map((question) => (
 						<QuestionCard
 							key={question._id}
